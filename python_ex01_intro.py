@@ -78,11 +78,12 @@ print(2*x)
 
 """**Ex 6. Dodanie modułu/biblioteki - from ... import**"""
 
-from datetime import datetime
+import datetime
 
-odds = [ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19,
-        21, 23, 25, 27, 29, 31, 33, 35, 37, 39,
-        41, 43, 45, 47, 49, 51, 53, 55, 57, 59]
+this_minute = datetime.datetime.today().minute
+print(this_minute)
+
+from datetime import datetime
 
 this_minute = datetime.today().minute
 print(this_minute)
@@ -90,10 +91,6 @@ print(this_minute)
 """**Ex 7. Dodanie modułu/biblioteki - from ... import ... as**"""
 
 from datetime import datetime as dt
-
-odds = [ 1,  3,  5,  7,  9, 11, 13, 15, 17, 19,
-        21, 23, 25, 27, 29, 31, 33, 35, 37, 39,
-        41, 43, 45, 47, 49, 51, 53, 55, 57, 59]
 
 this_minute = dt.today().minute
 print(this_minute)
@@ -333,7 +330,7 @@ person = {'Name': 'Tom',
 print(person)
 print(person['Home planet'])
 
-person['Age'] = 21
+person['Age'] = '21'
 print(person)
 
 #vowels = {'a' : 0, 'e' : 0, 'i' : 0, 'o' : 0, 'u' : 0}
@@ -348,6 +345,19 @@ for letter in word:
 #k:v -> klucz:wartość
 for k, v in sorted(found_vowels.items()):
     print(k, 'found', v, 'times')
+
+# tylko klucze
+for key in person.keys():
+  print(key.title())
+
+# tylko wartości
+for val in person.values():
+  print(val.title())
+
+del person['Occupation']
+print(person)
+
+print(person.get('Occupation','Klucz nie istnieje'))
 
 """**Ex 19. Zbiór - set**"""
 
@@ -438,6 +448,7 @@ print(change(txt, 0))
 def search4letters(word:str, letters:str="aeiou") -> set:
     """
     Wyszukuje litery w słowie wejściowym
+    W przypadku braku 2 argumentu, wyszukuje samogłoski
     """
     return set(letters).intersection(set(word))
 
@@ -453,7 +464,7 @@ def is_even(x):
   return x%2 == 0
 
 new_fun = is_even
-new_fun(3)
+new_fun(2)
 
 def calc(op,a,b):
   return op(a,b)
@@ -479,7 +490,7 @@ def add2even(c):
 print(add2even(2))
 print(add2even(3))
 
-"""**Ex 25. Funcje - dostęp do zmiennych**"""
+"""**Ex 25. Funkcje - dostęp do zmiennych - poziomy widoczności**"""
 
 print("Funkcja 1")
 def f(y):
@@ -502,7 +513,7 @@ print(x)
 
 print("Funkcja 3")
 def h(y):
-  x +=1
+  x += 1
 
 x = 10
 h(x)
@@ -525,7 +536,7 @@ def is_even(x):
 
 print(is_even(4))
 
-print((lambda x: x%2 == 0)(8))
+print((lambda x: x%2 == 0)(12))
 
 """**Ex 28. Funkcje - zmienna ilość parameterów**"""
 
@@ -560,3 +571,32 @@ def vargs_func(*args, **kwargs):
         print ("Key ", key, "Value ", item)
 
 vargs_func(1,2,'x',[1,'a',2],a=1,b=2,c=3)
+
+"""**Ex 29. Funkcje - przekazanie listy**"""
+
+t_list = list(range(1,6))
+print(t_list)
+
+def add2list(list):
+  list[1] = 20
+  list.append(10)
+
+add2list(t_list)
+print(t_list)
+
+t_list = list(range(1,6))
+print(t_list)
+
+def add2list(list):
+  list[1] = 20
+  list.append(10)
+
+add2list(t_list[:])
+print(t_list)
+
+def print3args(arg1,arg2,arg3):
+  print(f'Argument 1 = {arg1}')
+  print(f'Argument 2 = {arg2}')
+  print(f'Argument 2 = {arg3}')
+
+print3args(*['one','two','three'])
